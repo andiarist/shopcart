@@ -1,12 +1,11 @@
 # Shopcart Project
 
 This project consists of a full-stack application that implements a shopping cart with a React frontend (Vite + TypeScript) and an Express backend.
-
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- **Node.js**: Version 18 or higher
+- **Node.js**: Version 20.19 or higher
 - **pnpm**: Version 9 or higher
 
 ### Installation
@@ -14,7 +13,7 @@ This project consists of a full-stack application that implements a shopping car
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/andiarist/shopcart
+   git clone https://github.com/andiarist/shopcart.git
    cd shopcart
    ```
 

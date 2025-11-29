@@ -1,0 +1,41 @@
+@use "../../assets/styles/mixins" as mix;
+
+.wrapper {
+  padding: 0.5em 1em;
+  .header {
+    @include mix.flex-row-between-center;
+  }
+  .content {
+    margin: 1em;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1em;
+
+    .photo {
+      width: calc(25% - 2em);
+
+      .main_image {
+        width: auto;
+        height: 300px;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .content {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 830px) {
+    .content {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 600px) {
+    .content {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  }
+}
