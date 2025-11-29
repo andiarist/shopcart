@@ -1,4 +1,4 @@
-@use "../../assets/styles/mixins" as mix;
+@use '../../assets/styles/mixins' as mix;
 
 .wrapper {
   padding: 0.5em 1em;
@@ -12,6 +12,10 @@
     gap: 1em;
     .product_item {
       width: calc(50% - 1em);
+      img {
+        height: 400px;
+        width: auto;
+      }
     }
 
     .actions {

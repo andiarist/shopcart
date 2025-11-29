@@ -1,12 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
+import { shopCartApi } from '../services/shopCartApi';
 
-export const rootReducer = combineReducers({});
+export const rootReducer = combineReducers({ [shopCartApi.reducerPath]: shopCartApi.reducer });
 
 export const setupStore = (preloadedState?: Partial<RootState>) => {
   return configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([]),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([shopCartApi.middleware]),
     preloadedState,
   });
 };

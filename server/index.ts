@@ -13,10 +13,34 @@ app.use(express.json());
 
 const productsPath = path.join(__dirname, 'products.json');
 const products = JSON.parse(fs.readFileSync(productsPath, 'utf-8'));
-console.log(products);
 
 app.get('/api/product', (req: Request, res: Response) => {
-  res.json(products);
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const search = String(req.query.search) || '';
+
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+  const filteredProduct =
+    search.length > 0
+      ? products.filter(
+          (p) =>
+            p.reference.toLowerCase().includes(search) ||
+            p.name.toLowerCase().includes(search) ||
+            p.description.toLowerCase().includes(search)
+        )
+      : products;
+
+  const paginatedProducts = filteredProduct.slice(startIndex, endIndex);
+  res.json({
+    pageData: {
+      page,
+      limit,
+      total: filteredProduct.length,
+      totalPages: Math.ceil(filteredProduct.length / limit),
+    },
+    data: paginatedProducts,
+  });
 });
 
 app.get('/api/product/:id', (req: Request, res: Response) => {
