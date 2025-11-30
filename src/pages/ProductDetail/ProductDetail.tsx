@@ -13,7 +13,7 @@ const ProductDetail = () => {
     <Layout>
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          <div>Detail View</div>
+          <h1>Detail View</h1>
         </div>
         {isLoading ? (
           <div>Loading detail</div>

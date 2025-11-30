@@ -8,12 +8,12 @@ export const useProductDetail = (id: string) => {
   const { data, isLoading } = useGetProductDetailQuery(id);
   const [postCart] = useAddProductMutation();
 
-  const [size, setSize] = useState(data?.sizes[0] || '');
+  const [size, setSize] = useState(data?.sizes[0] || 'XS');
   const [amount, setAmount] = useState(1);
   const handleChangeSize = (e: React.ChangeEvent<HTMLSelectElement>) => setSize(e.target.value);
-const handleChangeAmount=(e: React.ChangeEvent<HTMLInputElement>) =>
-    setAmount(Number(e.target.value))
-  
+  const handleChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setAmount(Number(e.target.value));
+
   const handleAdd = async () => {
     try {
       const res = await postCart({ id: Number(id), size, total: amount });
@@ -29,6 +29,7 @@ const handleChangeAmount=(e: React.ChangeEvent<HTMLInputElement>) =>
     isLoading,
     size,
     amount,
-    handleChangeSize,handleChangeAmount
+    handleChangeSize,
+    handleChangeAmount,
   };
 };

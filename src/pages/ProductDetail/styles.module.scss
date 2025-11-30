@@ -3,6 +3,7 @@
 .wrapper {
   padding: 0.5em 1em;
   .header {
+    margin: 1em;
     @include mix.flex-row-between-center;
   }
   .content {
@@ -18,7 +19,13 @@
       }
     }
 
+    // .product_data.descriptions {
+    //   li {
+    //   }
+    // }
     .actions {
+      @include mix.flex-column-between;
+      gap: 1em;
     }
   }
 }

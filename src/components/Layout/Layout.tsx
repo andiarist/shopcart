@@ -13,7 +13,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </Link>
           <div className={styles.main_menu}>Breadcrumbs </div>
         </div>
-        <div>
+        <div className={styles.header_right}>
           <CartPannel />
         </div>
       </header>

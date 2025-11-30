@@ -10,8 +10,9 @@ const ProductList = () => {
     <Layout>
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          <div>List View</div>
+          <h1>List View</h1>
           <input
+            className={styles.search_input}
             type="text"
             placeholder="Buscar productos..."
             value={search}
@@ -23,17 +24,29 @@ const ProductList = () => {
             <p>Loading data</p>
           ) : (
             data?.data.map((p: Product) => (
-              <div className={styles.photo} key={crypto.randomUUID()}>
-                <Link to={`/${p.id}`}>
-                  <img className={styles.main_image} src={p.mediaUrl} />
-                </Link>
-              </div>
+              <Link to={`/${p.id}`} key={crypto.randomUUID()} className={styles.card_hover}>
+                <div className={styles.card}>
+                  <div className={styles.main_image}>
+                    <img src={p.mediaUrl} />
+                  </div>
+                  <div className={styles.data}>
+                    <p className={styles.data_name}>{p.name.toLowerCase()}</p>
+                    <p className={styles.data_price}>{p.price} EUR</p>
+                  </div>
+                </div>
+              </Link>
             ))
           )}
         </div>
-        <button disabled={page >= (data?.pageData.totalPages ?? 1)} onClick={loadMoreProducts}>
-          Cargar más
-        </button>
+        <div className={styles.load_more}>
+          <button
+            className={styles.load_more_btn}
+            disabled={page >= (data?.pageData.totalPages ?? 1)}
+            onClick={loadMoreProducts}
+          >
+            Cargar más
+          </button>
+        </div>
       </div>
     </Layout>
   );
