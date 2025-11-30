@@ -39,7 +39,7 @@ const ProductDetail = () => {
               <div className={styles.actions}>
                 <div className={styles.selectors}>
                   <div className={styles.select_size}>
-                    <label>Select size:</label>
+                    <label htmlFor="size">Select size:</label>
                     <select name="size" id="size" value={size} onChange={handleChangeSize}>
                       {data.sizes.map((s: string) => (
                         <option value={s} key={s}>
@@ -50,7 +50,7 @@ const ProductDetail = () => {
                   </div>
 
                   <div className={styles.select_quantity}>
-                    <label>Quantity:</label>
+                    <label htmlFor="amount">Quantity:</label>
                     <input
                       type="number"
                       id="amount"
@@ -70,7 +70,7 @@ const ProductDetail = () => {
             </div>
           </div>
         ) : (
-          <div>Ocurrió un error</div>
+          <div>There was an error, please try it later</div>
         )}
       </div>
     </Layout>

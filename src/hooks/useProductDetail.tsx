@@ -17,10 +17,9 @@ export const useProductDetail = (id: string) => {
   const handleAdd = async () => {
     try {
       const res = await postCart({ id: Number(id), size, total: amount });
-      console.log('res: ', res);
       if (res.data) dispatch(setTotalElements(res.data.count));
     } catch {
-      alert('No se ha podido añadir al carro');
+      alert('there was an error while adding to the cart. Please, try it later');
     }
   };
   return {

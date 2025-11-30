@@ -58,3 +58,6 @@ button:hover {
   background-color: #555;
   cursor: pointer;
 }
+a {
+  all: unset;
+}

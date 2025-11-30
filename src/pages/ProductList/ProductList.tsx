@@ -24,7 +24,12 @@ const ProductList = () => {
             <p>Loading data</p>
           ) : (
             data?.data.map((p: Product) => (
-              <Link to={`/${p.id}`} key={crypto.randomUUID()} className={styles.card_hover}>
+              <Link
+                to={`/${p.id}`}
+                key={crypto.randomUUID()}
+                className={styles.card_hover}
+                data-testid={`link-to${p.id}`}
+              >
                 <div className={styles.card}>
                   <div className={styles.main_image}>
                     <img src={p.mediaUrl} />

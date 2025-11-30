@@ -16,6 +16,9 @@
     .header_left {
       @include mix.flex-row-start-center;
       gap: 1em;
+      a:hover {
+        cursor: pointer;
+      }
     }
   }
 
