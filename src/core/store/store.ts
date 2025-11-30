@@ -1,8 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { shopCartApi } from '../services/shopCartApi';
+import cartReducer from './cartSlice.ts';
 
-export const rootReducer = combineReducers({ [shopCartApi.reducerPath]: shopCartApi.reducer });
+export const rootReducer = combineReducers({
+  cartReducer,
+  [shopCartApi.reducerPath]: shopCartApi.reducer,
+});
 
 export const setupStore = (preloadedState?: Partial<RootState>) => {
   return configureStore({

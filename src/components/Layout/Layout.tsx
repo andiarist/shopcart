@@ -1,4 +1,5 @@
 import logoImg from '../../assets/react.svg';
+import { CartPannel } from '../CartPannel/CartPannel';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +13,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </Link>
           <div className={styles.main_menu}>Breadcrumbs </div>
         </div>
-        <div>Parte derecha de cabecera</div>
+        <div>
+          <CartPannel />
+        </div>
       </header>
       <main>{children}</main>
       <footer className={styles.footer_container}>

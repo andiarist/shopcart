@@ -1,24 +1,11 @@
-import { useEffect, useState } from 'react';
-import Layout from '../../components/Layout/Layout';
-import { useGetProductsListQuery } from '../../core/services/shopCartApi';
-import styles from './styles.module.scss';
-import { Product } from '../../core/types/types';
 import { Link } from 'react-router-dom';
+import Layout from '../../components/Layout/Layout';
+import { Product } from '../../core/types/types';
+import { useProductList } from '../../hooks/useProductList';
+import styles from './styles.module.scss';
 
 const ProductList = () => {
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-
-  const { data, isLoading } = useGetProductsListQuery({
-    page,
-    limit: 40,
-    search,
-  });
-  useEffect(() => {
-    console.log('dentro del efecto de busqueda');
-    setPage(1);
-  }, [search]);
-
+  const { data, isLoading, search, handleSearch, page, loadMoreProducts } = useProductList();
   return (
     <Layout>
       <div className={styles.wrapper}>
@@ -28,10 +15,7 @@ const ProductList = () => {
             type="text"
             placeholder="Buscar productos..."
             value={search}
-            onChange={(e) => {
-              console.log('dentro de search');
-              setSearch(e.target.value);
-            }}
+            onChange={(e) => handleSearch(e)}
           />
         </div>
         <div className={styles.content}>
@@ -47,10 +31,7 @@ const ProductList = () => {
             ))
           )}
         </div>
-        <button
-          disabled={page >= (data?.pageData.totalPages ?? 1)}
-          onClick={() => setPage((p) => p + 1)}
-        >
+        <button disabled={page >= (data?.pageData.totalPages ?? 1)} onClick={loadMoreProducts}>
           Cargar más
         </button>
       </div>

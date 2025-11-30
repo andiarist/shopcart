@@ -1,25 +1,13 @@
-import { useState } from 'react';
-import styles from './styles.module.scss';
-import Layout from '../../components/Layout/Layout';
 import { useParams } from 'react-router-dom';
-import { useAddProductMutation, useGetProductDetailQuery } from '../../core/services/shopCartApi';
+import Layout from '../../components/Layout/Layout';
+import { useProductDetail } from '../../hooks/useProductDetail';
+import styles from './styles.module.scss';
+import { PhotoGallery } from '../../components/PhotoGallery/PhotoGallery';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useGetProductDetailQuery(id || '');
-  const [postCart] = useAddProductMutation();
-
-  const [size, setSize] = useState(data?.sizes[0] || '');
-  const [amount, setAmount] = useState(1);
-
-  const handleAdd = async () => {
-    try {
-      const res = await postCart({ id: Number(id), size, total: amount });
-      console.log('res: ', res);
-    } catch {
-      alert('No se ha podido añadir al carro');
-    }
-  };
+  const { handleAdd, data, isLoading, size, handleChangeSize, amount, handleChangeAmount } =
+    useProductDetail(id || '');
 
   return (
     <Layout>
@@ -32,7 +20,12 @@ const ProductDetail = () => {
         ) : data ? (
           <div className={styles.content}>
             <div className={`${styles.product_item} ${styles.product_images}`}>
-              <img src={data.mediaUrl} alt="imagen de producto" />
+              <PhotoGallery
+                images={data.otherMediaUrl.map((img: string, index: number) => ({
+                  src: img,
+                  alt: `${data.reference}_thumb-${index}`,
+                }))}
+              />
             </div>
             <div className={`${styles.product_item} ${styles.product_data}`}>
               <div className={styles.descriptions}>
@@ -44,12 +37,7 @@ const ProductDetail = () => {
                 </ul>
               </div>
               <div className={styles.actions}>
-                <select
-                  name="size"
-                  id="size"
-                  value={size}
-                  onChange={(e) => setSize(e.target.value)}
-                >
+                <select name="size" id="size" value={size} onChange={handleChangeSize}>
                   {data.sizes.map((s: string) => (
                     <option value={s} key={s}>
                       {s}
@@ -64,9 +52,7 @@ const ProductDetail = () => {
                   className={styles.amount_input}
                   value={amount}
                   min={1}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setAmount(Number(e.target.value))
-                  }
+                  onChange={(e) => handleChangeAmount(e)}
                 />
                 <button onClick={handleAdd}>Añadir</button>
               </div>
