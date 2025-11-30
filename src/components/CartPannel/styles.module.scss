@@ -24,10 +24,16 @@
 .pannel {
   position: absolute;
   right: 10px;
-  button {
-    //all: unset;
-    &:hover {
-      cursor: pointer;
-    }
+  background-color: white;
+  border: 1px solid rgba(211, 211, 211, 0.767);
+  border-radius: 5%;
+  min-height: 50px;
+  padding: 0.5em 1em;
+  -webkit-box-shadow: 3px 5px 15px -4px rgba(0, 0, 0, 0.93);
+  box-shadow: 3px 5px 15px -4px rgba(0, 0, 0, 0.93);
+  @include mix.flex-column-center;
+  color: black;
+  p {
+    margin-bottom: 1em;
   }
 }

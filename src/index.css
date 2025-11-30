@@ -37,3 +37,24 @@ h6,
 p {
   margin: 0;
 }
+
+input,
+select {
+  padding: 0.5em;
+  font-size: 1em;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  background-color: #fff;
+}
+button {
+  all: unset;
+  background-color: black;
+  color: white;
+  padding: 0.25em 0.75em;
+  border-radius: 5px;
+}
+button:hover {
+  background-color: #555;
+  cursor: pointer;
+}

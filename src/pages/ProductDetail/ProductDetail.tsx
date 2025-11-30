@@ -3,6 +3,7 @@ import Layout from '../../components/Layout/Layout';
 import { useProductDetail } from '../../hooks/useProductDetail';
 import styles from './styles.module.scss';
 import { PhotoGallery } from '../../components/PhotoGallery/PhotoGallery';
+import { ShoppingCart } from 'lucide-react';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -19,7 +20,7 @@ const ProductDetail = () => {
           <div>Loading detail</div>
         ) : data ? (
           <div className={styles.content}>
-            <div className={`${styles.product_item} ${styles.product_images}`}>
+            <div className={` ${styles.product_images}`}>
               <PhotoGallery
                 images={data.otherMediaUrl.map((img: string, index: number) => ({
                   src: img,
@@ -27,34 +28,44 @@ const ProductDetail = () => {
                 }))}
               />
             </div>
-            <div className={`${styles.product_item} ${styles.product_data}`}>
-              <div className={styles.descriptions}>
-                <h3>Descripcion de producto</h3>
-                <ul>
-                  <li key={data.reference.slice(0, 10)}>Ref:{data.reference}</li>
-                  <li key={data.name.slice(0, 10)}>Name: {data.name}</li>
-                  <li key={data.description.slice(0, 10)}>Desc: {data.description}</li>
-                </ul>
+            <div className={`${styles.product_data}`}>
+              <div>
+                <p className={styles.light_text}>Ref: {data.reference}</p>
+                <p className={styles.product_name}>{data.name}</p>
+                <p className={styles.product_price}>{data.price} EUR</p>
+                <p className={styles.light_text}>Description:</p>
+                <p className={styles.product_desc}>{data.description}</p>
               </div>
               <div className={styles.actions}>
-                <select name="size" id="size" value={size} onChange={handleChangeSize}>
-                  {data.sizes.map((s: string) => (
-                    <option value={s} key={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
+                <div className={styles.selectors}>
+                  <div className={styles.select_size}>
+                    <label>Select size:</label>
+                    <select name="size" id="size" value={size} onChange={handleChangeSize}>
+                      {data.sizes.map((s: string) => (
+                        <option value={s} key={s}>
+                          {s}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
-                <input
-                  type="number"
-                  id="amount"
-                  aria-describedby="helper-text-explanation"
-                  className={styles.amount_input}
-                  value={amount}
-                  min={1}
-                  onChange={(e) => handleChangeAmount(e)}
-                />
-                <button onClick={handleAdd}>Añadir</button>
+                  <div className={styles.select_quantity}>
+                    <label>Quantity:</label>
+                    <input
+                      type="number"
+                      id="amount"
+                      aria-describedby="helper-text-explanation"
+                      className={styles.amount_input}
+                      value={amount}
+                      min={1}
+                      onChange={(e) => handleChangeAmount(e)}
+                    />
+                  </div>
+                </div>
+                <button onClick={handleAdd} className={styles.add_cart_btn}>
+                  <ShoppingCart />
+                  Add to car
+                </button>
               </div>
             </div>
           </div>

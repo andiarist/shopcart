@@ -8,13 +8,6 @@
 
     .search_input {
       width: 200px;
-      padding: 0.5em;
-      font-size: 16px;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      outline: none;
-      //transition: all 0.3s ease;
-      background-color: #fff;
     }
   }
   .content {
@@ -71,17 +64,6 @@
     width: 100%;
     margin: 1em;
     @include mix.flex-row-center;
-    .load_more_btn {
-      all: unset;
-      background-color: black;
-      color: white;
-      padding: 0.25em 0.75em;
-      border-radius: 5px;
-      &:hover {
-        background-color: #555;
-        cursor: pointer;
-      }
-    }
   }
 
   @media (max-width: 1024px) {

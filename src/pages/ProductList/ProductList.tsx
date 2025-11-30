@@ -14,7 +14,7 @@ const ProductList = () => {
           <input
             className={styles.search_input}
             type="text"
-            placeholder="Buscar productos..."
+            placeholder="Search product..."
             value={search}
             onChange={(e) => handleSearch(e)}
           />
@@ -44,7 +44,7 @@ const ProductList = () => {
             disabled={page >= (data?.pageData.totalPages ?? 1)}
             onClick={loadMoreProducts}
           >
-            Cargar más
+            Load more...
           </button>
         </div>
       </div>
