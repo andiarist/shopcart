@@ -19,7 +19,7 @@ const cartSlice = createSlice({
     },
     resetCart: (state) => {
       localStorage.removeItem('totalElements');
-      state.totalElements = CART_INITIAL_STATE.totalElements;
+      state.totalElements = 0;
     },
   },
 });

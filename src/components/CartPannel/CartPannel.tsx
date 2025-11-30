@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../core/store/store';
 import { resetCart } from '../../core/store/cartSlice';
 import { cartStore } from '../../core/store/store-selects';
+import { toast } from 'sonner';
 
 export const CartPannel = () => {
   const dispatch = useAppDispatch();
@@ -43,6 +44,7 @@ export const CartPannel = () => {
                 onClick={() => {
                   dispatch(resetCart());
                   showPanelVisible(false);
+                  toast.info('Cart emptied successfully');
                 }}
               >
                 Empty cart

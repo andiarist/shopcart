@@ -3,9 +3,11 @@ import Layout from '../../components/Layout/Layout';
 import { Product } from '../../core/types/types';
 import { useProductList } from '../../hooks/useProductList';
 import styles from './styles.module.scss';
+import { Loader } from '../../components/Loader/Loader';
 
 const ProductList = () => {
-  const { data, isLoading, search, handleSearch, page, loadMoreProducts } = useProductList();
+  const { data, isLoading, isError, search, handleSearch, page, loadMoreProducts, allProducts } =
+    useProductList();
   return (
     <Layout>
       <div className={styles.wrapper}>
@@ -20,10 +22,10 @@ const ProductList = () => {
           />
         </div>
         <div className={styles.content}>
-          {isLoading ? (
-            <p>Loading data</p>
+          {isLoading || (allProducts.length === 0 && !isError) ? (
+            <Loader />
           ) : (
-            data?.data.map((p: Product) => (
+            allProducts.map((p: Product) => (
               <Link
                 to={`/${p.id}`}
                 key={crypto.randomUUID()}
@@ -36,22 +38,29 @@ const ProductList = () => {
                   </div>
                   <div className={styles.data}>
                     <p className={styles.data_name}>{p.name.toLowerCase()}</p>
-                    <p className={styles.data_price}>{p.price} EUR</p>
+                    <p className={styles.data_price}>{p.price / 100} EUR</p>
                   </div>
                 </div>
               </Link>
             ))
           )}
         </div>
-        <div className={styles.load_more}>
-          <button
-            className={styles.load_more_btn}
-            disabled={page >= (data?.pageData.totalPages ?? 1)}
-            onClick={loadMoreProducts}
-          >
-            Load more...
-          </button>
-        </div>
+        {isError ? (
+          <>
+            <p>There was an error loading products</p>
+            <p>Please, try it later</p>
+          </>
+        ) : (
+          <div className={styles.load_more}>
+            <button
+              className={styles.load_more_btn}
+              disabled={page >= (data?.pageData.totalPages ?? 1)}
+              onClick={() => loadMoreProducts()}
+            >
+              Load more...
+            </button>
+          </div>
+        )}
       </div>
     </Layout>
   );

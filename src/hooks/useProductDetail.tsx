@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useGetProductDetailQuery, useAddProductMutation } from '../core/services/shopCartApi';
 import { setTotalElements } from '../core/store/cartSlice';
 import { useAppDispatch } from '../core/store/store';
+import { toast } from 'sonner';
 
 export const useProductDetail = (id: string) => {
   const dispatch = useAppDispatch();
@@ -17,9 +18,14 @@ export const useProductDetail = (id: string) => {
   const handleAdd = async () => {
     try {
       const res = await postCart({ id: Number(id), size, total: amount });
-      if (res.data) dispatch(setTotalElements(res.data.count));
+      if (res.data) {
+        dispatch(setTotalElements(res.data.count));
+        toast.success('Element add to cart');
+      } else {
+        throw new Error();
+      }
     } catch {
-      alert('there was an error while adding to the cart. Please, try it later');
+      toast.error('There was an error while adding to the cart. Please, try it later');
     }
   };
   return {

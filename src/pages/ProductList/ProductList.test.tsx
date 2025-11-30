@@ -41,6 +41,8 @@ const hookReturnMock = {
   page: 1,
   handleSearch: handleSearchMocked,
   loadMoreProducts: loadMoreProductsMocked,
+  allProducts: dataMocked,
+  isError: false,
 };
 
 describe('ProductList test', () => {
@@ -63,7 +65,7 @@ describe('ProductList test', () => {
     const searchInput = screen.getByPlaceholderText(/Search product\.\.\./i);
     expect(searchInput).toBeInTheDocument();
     expect((searchInput as HTMLInputElement).value).toBe('');
-    expect(screen.getByText(/Loading data/i)).toBeInTheDocument();
+    expect(screen.getByTestId('loader')).toBeInTheDocument();
   });
   it('Renders product cards when data is available and not loading', () => {
     vi.mocked(useProductList).mockReturnValue({ ...hookReturnMock });
@@ -74,11 +76,11 @@ describe('ProductList test', () => {
       </ProviderTestWrapper>
     );
 
-    expect(screen.queryByText(/Loading data/i)).not.toBeInTheDocument();
+    expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
 
     dataMocked.forEach((p) => {
       expect(screen.getByText(p.name.toLowerCase(), { exact: false })).toBeInTheDocument();
-      expect(screen.getByText(new RegExp(`${p.price} EUR`))).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(`${p.price / 100} EUR`))).toBeInTheDocument();
       const img = screen.getByRole('img', { name: '' }) as HTMLImageElement;
       expect(img).toBeInTheDocument();
     });

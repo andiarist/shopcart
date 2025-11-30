@@ -3,7 +3,9 @@ import { Pagination, Product } from '../types/types';
 
 export const shopCartApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/' }),
-  refetchOnMountOrArgChange: true,
+  refetchOnMountOrArgChange: false,
+  refetchOnReconnect: false,
+  refetchOnFocus: false,
   endpoints: (build) => ({
     getProductsList: build.query<
       { pageData: Pagination; data: Product[] },
@@ -14,19 +16,14 @@ export const shopCartApi = createApi({
         method: 'GET',
         params: { search, page, limit },
       }),
-      serializeQueryArgs: ({ endpointName, queryArgs }) => `${endpointName}-${queryArgs.search}`,
-
-      merge: (currentCache, newData) => {
-        currentCache.data.push(...newData.data);
-        currentCache.pageData.page = newData.pageData.page;
-        currentCache.pageData.limit = newData.pageData.limit;
-        currentCache.pageData.total = newData.pageData.total;
-        currentCache.pageData.totalPages = newData.pageData.totalPages;
-      },
+      serializeQueryArgs: ({ endpointName, queryArgs }) =>
+        `${endpointName}-${queryArgs.search ?? ''}-${queryArgs.page ?? 1}`,
 
       forceRefetch({ currentArg, previousArg }) {
+        if (!previousArg) return false;
         return currentArg?.page !== previousArg?.page;
       },
+
       keepUnusedDataFor: 3600,
     }),
     getProductDetail: build.query({

@@ -4,6 +4,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { Product } from '../../core/types/types';
 import { ProviderTestWrapper } from '../../test/providers';
+import userEvent from '@testing-library/user-event';
 
 const productId = 1;
 
@@ -54,7 +55,7 @@ describe('ProductDetail test', () => {
     );
 
     expect(screen.getByText(/Detail View/i)).toBeInTheDocument();
-    expect(screen.getByText(/Loading detail/i)).toBeInTheDocument();
+    expect(screen.getByTestId('loader')).toBeInTheDocument();
   });
   it('Renders error state when not loading and data is null/undefined', () => {
     vi.mocked(useProductDetail).mockReturnValue({ ...hookReturnMock, data: undefined });
@@ -78,7 +79,7 @@ describe('ProductDetail test', () => {
 
     expect(screen.getByText(`Ref: ${dataMocked.reference}`)).toBeInTheDocument();
     expect(screen.getByText(dataMocked.name)).toBeInTheDocument();
-    expect(screen.getByText(`${dataMocked.price} EUR`)).toBeInTheDocument();
+    expect(screen.getByText(`${dataMocked.price / 100} EUR`)).toBeInTheDocument();
   });
   it('Select size change triggers handleChangeSize', () => {
     vi.mocked(useProductDetail).mockReturnValue(hookReturnMock);
@@ -113,7 +114,7 @@ describe('ProductDetail test', () => {
 
     expect(handleChangeAmountMocked).toHaveBeenCalledTimes(1);
   });
-  it('Clicking "Add to car" button calls handleAdd', () => {
+  it('Clicking "Add to car" button calls handleAdd', async () => {
     vi.mocked(useProductDetail).mockReturnValue(hookReturnMock);
     render(
       <ProviderTestWrapper>
@@ -123,7 +124,7 @@ describe('ProductDetail test', () => {
 
     const button = screen.getByRole('button', { name: /Add to car/i });
 
-    fireEvent.click(button);
+    await userEvent.click(button);
 
     expect(handleAddMocked).toHaveBeenCalledTimes(1);
   });

@@ -13,7 +13,6 @@ type PhotoGalleryProps = {
 
 export function PhotoGallery({ images }: PhotoGalleryProps) {
   const [index, setIndex] = useState(0);
-  console.log(index);
   const prev = () => {
     setIndex((i) => (i === 0 ? images.length - 1 : i - 1));
   };
@@ -25,7 +24,7 @@ export function PhotoGallery({ images }: PhotoGalleryProps) {
   return (
     <div className={styles.slider}>
       <button className={styles.slider_arrow} onClick={prev}>
-        <ArrowBigLeft className={styles.slider_left} />
+        <ArrowBigLeft />
       </button>
       <div className={styles.slider_wrapper}>
         {images.map((img, i) => (
@@ -39,7 +38,7 @@ export function PhotoGallery({ images }: PhotoGalleryProps) {
       </div>
 
       <button className={styles.slider_arrow} onClick={next}>
-        <ArrowBigRight className={styles.slider_right} />
+        <ArrowBigRight />
       </button>
     </div>
   );

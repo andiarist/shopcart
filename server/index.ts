@@ -60,7 +60,6 @@ app.post('/api/cart', (req: Request, res: Response) => {
   if (!id || !size || !total) {
     return res.status(400).json({ error: 'id, size and total  are required' });
   }
-
   res.json({ count: total });
 });
 

@@ -9,19 +9,21 @@
     position: relative;
     width: 100%;
     height: 400px;
+  }
 
-    .slider_image {
-      position: absolute;
-      top: 0;
-      width: auto;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out;
-      border-radius: 12px;
-      &.active {
-        opacity: 1;
-        z-index: 1;
-      }
+  .slider_image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: auto;
+    opacity: 0;
+    border-radius: 12px;
+    transition: opacity 0.5s ease-in-out;
+    transform: translate(-50%, -50%);
+    &.active {
+      opacity: 1;
+      z-index: 1;
     }
   }
 
@@ -33,9 +35,8 @@
     border-radius: 50%;
     transition: opacity 0.2s ease;
     @include mix.flex-column-center;
-    width: 38px;
-    height: 38px;
-    margin: 0.5em;
+    padding: 0.5em;
+    margin: 0 0.5em;
 
     &:hover {
       background: rgba(0, 0, 0, 0.6);

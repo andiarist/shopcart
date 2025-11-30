@@ -4,6 +4,7 @@ import { useProductDetail } from '../../hooks/useProductDetail';
 import styles from './styles.module.scss';
 import { PhotoGallery } from '../../components/PhotoGallery/PhotoGallery';
 import { ShoppingCart } from 'lucide-react';
+import { Loader } from '../../components/Loader/Loader';
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,7 +18,7 @@ const ProductDetail = () => {
           <h1>Detail View</h1>
         </div>
         {isLoading ? (
-          <div>Loading detail</div>
+          <Loader />
         ) : data ? (
           <div className={styles.content}>
             <div className={` ${styles.product_images}`}>
@@ -32,7 +33,7 @@ const ProductDetail = () => {
               <div>
                 <p className={styles.light_text}>Ref: {data.reference}</p>
                 <p className={styles.product_name}>{data.name}</p>
-                <p className={styles.product_price}>{data.price} EUR</p>
+                <p className={styles.product_price}>{data.price / 100} EUR</p>
                 <p className={styles.light_text}>Description:</p>
                 <p className={styles.product_desc}>{data.description}</p>
               </div>

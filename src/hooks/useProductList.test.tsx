@@ -58,11 +58,14 @@ describe('useProductList', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toEqual({ data: dataMocked, pageData: paginationMocked });
 
-    expect(useGetProductsListQuery).toHaveBeenCalledWith({
-      page: 1,
-      limit: 40,
-      search: '',
-    });
+    expect(useGetProductsListQuery).toHaveBeenCalledWith(
+      {
+        page: 1,
+        limit: 40,
+        search: '',
+      },
+      { skip: false }
+    );
   });
 
   it('handleSearch updates search value and resets page to 1 via effect', () => {
@@ -84,10 +87,13 @@ describe('useProductList', () => {
 
     expect(result.current.page).toBe(1);
 
-    expect(useGetProductsListQuery).toHaveBeenLastCalledWith({
-      page: 1,
-      limit: 40,
-      search: 'shirt',
-    });
+    expect(useGetProductsListQuery).toHaveBeenLastCalledWith(
+      {
+        page: 1,
+        limit: 40,
+        search: 'shirt',
+      },
+      { skip: false }
+    );
   });
 });
